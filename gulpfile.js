@@ -1,3 +1,9 @@
+/**
+ * Quick HTML Template Bilder
+ */
+/**
+ * [Initiate require pakeges]
+ **/
 var gulp  = require('gulp'),
     uglify = require('gulp-uglify'),
     sass  = require('gulp-ruby-sass'),
@@ -6,9 +12,10 @@ var gulp  = require('gulp'),
     open = require("gulp-open"),
     plumber= require('gulp-plumber');
 
-// Scripts Task
-// Uglifiles
 
+/**
+ * [Check javascript error and compress script]
+ */
 gulp.task('scripts',function(){
   gulp.src('js/*.js')
     .pipe(plumber())
@@ -17,9 +24,9 @@ gulp.task('scripts',function(){
     .pipe(connect.reload());
 });
 
-// Scripts Task
-// Uglifiles
-
+/**
+ * Compile sass into css and minify.
+ */
 gulp.task('style',function(){
   gulp.src('scss/*.scss')
     .pipe(plumber())
@@ -29,8 +36,10 @@ gulp.task('style',function(){
     .pipe(gulp.dest('build/css/'))
     .pipe(connect.reload());
 });
-// Jade task
-//
+
+/**
+ * Compile jade to html
+ */
 gulp.task('jade',function(){
   gulp.src("jade/*.jade")
     .pipe(plumber())
