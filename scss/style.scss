@@ -1,3 +1,5 @@
+@import "bourbon";
+@import "includes/base";
 $small: 400px;
 $medium: 700px;
 $large: 960px;
@@ -5,9 +7,12 @@ $large: 960px;
 
 
 body{
-  background: green;
+  @include linear-gradient(50deg, #1e5799 0%, #2989d8 50%, #207cca 51%, #7db9e8 100%);
 }
 
 a {
   color: read
+}
+.container{
+  @include outer-container;
 }

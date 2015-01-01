@@ -1,7 +1,5 @@
-//- Setting Few default Variables
-block global_variables
-  -var title= "Home", bodyClass="page", isFront=false, pageId=''
-
+block config
+  include _config
 //- Avaiable Blocks
 //-
 //-     meta_tags       // Pass Meta tags
@@ -15,7 +13,7 @@ html(lang="en")
   body(class='page #{bodyClass}')
     div.content-wrapper
       header.header
-        //include ../partials/_header
+        include ../partials/_header
 
       section.content
         block content

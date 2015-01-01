@@ -6,7 +6,7 @@
  **/
 var gulp  = require('gulp'),
     uglify = require('gulp-uglify'),
-    sass  = require('gulp-ruby-sass'),
+    sass  = require('gulp-sass'),
     jade  = require('gulp-jade'),
     connect = require('gulp-connect'),
     open = require("gulp-open"),
@@ -20,7 +20,7 @@ gulp.task('scripts',function(){
   gulp.src('js/*.js')
     .pipe(plumber())
     .pipe(uglify())
-    .pipe(gulp.dest('build/js'));
+    .pipe(gulp.dest('build/js'))
     .pipe(connect.reload());
 });
 
@@ -31,6 +31,7 @@ gulp.task('style',function(){
   gulp.src('scss/*.scss')
     .pipe(plumber())
     .pipe(sass({
+      includePaths: require('node-bourbon').includePaths,
       style: 'compressed'
     }))
     .pipe(gulp.dest('build/css/'))
