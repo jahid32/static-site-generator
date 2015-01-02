@@ -55,6 +55,13 @@ gulp.task('connect', function() {
     livereload: true
   });
 });
+// This will use the default applications
+
+gulp.task("simple", function(){
+  gulp.src("build/index.html")
+  .pipe(open("<%file.path%>",{app:"chrome", url: "http://localhost:8080"}));
+});
+
 // Watch task
 // It's watches java script
 gulp.task('watch',function(){
@@ -63,5 +70,5 @@ gulp.task('watch',function(){
   gulp.watch('jade/**/*.jade', ['jade']);
 });
 
-gulp.task('default', ['scripts', 'style', 'watch', 'connect']);
+gulp.task('default', ['scripts', 'style', 'watch', 'connect','simple']);
 
