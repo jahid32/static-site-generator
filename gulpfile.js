@@ -10,7 +10,9 @@ var gulp  = require('gulp'),
     jade  = require('gulp-jade'),
     connect = require('gulp-connect'),
     open = require("gulp-open"),
-    plumber= require('gulp-plumber');
+    plumber= require('gulp-plumber'),
+    browserSync = require('browser-sync'),
+    reload = browserSync.reload;
 
 
 /**
@@ -57,18 +59,34 @@ gulp.task('connect', function() {
 });
 // This will use the default applications
 
-gulp.task("simple", function(){
-  gulp.src("build/index.html")
-  .pipe(open("<%file.path%>",{app:"chrome", url: "http://localhost:8080"}));
+//gulp.task("serve", function(){
+//  gulp.src("build/index.html")
+//  .pipe(open("<%file.path%>",{app:"chrome", url: "http://localhost:8080"}));
+//  gulp.watch('js/**/*.js', ['scripts']);
+//  gulp.watch('scss/**/*.scss', ['style']);
+//  gulp.watch('jade/**/*.jade', ['jade']);
+//});
+// Watch Files For Changes & Reload
+gulp.task('serve', function () {
+  browserSync({
+    notify: false,
+    server: {
+      baseDir: ['.tmp', 'build']
+    }
+  });
+  gulp.watch('jade/**/*.jade', ['jade']);
+  gulp.watch(['build/**/*.html'], reload);
+  gulp.watch('scss/**/*.scss', ['style']);
+  gulp.watch(['build/css/*.css'], reload);
+  gulp.watch('js/**/*.js', ['scripts']);
 });
-
 // Watch task
 // It's watches java script
 gulp.task('watch',function(){
-  gulp.watch('js/*.js', ['scripts']);
-  gulp.watch('scss/*.scss', ['style']);
+  gulp.watch('js/**/*.js', ['scripts']);
+  gulp.watch('scss/**/*.scss', ['style']);
   gulp.watch('jade/**/*.jade', ['jade']);
 });
 
-gulp.task('default', ['scripts', 'style', 'watch', 'connect','simple']);
+gulp.task('default', ['scripts', 'style',  ,'serve']);
 

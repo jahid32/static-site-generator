@@ -5,3 +5,17 @@
 -var isFront  = false
 -var pageId =''
 -var jQuery = false
+mixin navemenu(menu_items)
+  nav.navemenu
+    ul
+      each top_item in menu_items
+        li
+          +navlink(top_item)
+          if top_item.child
+            ul
+              each child_item in top_item.child
+                li
+                  +navlink(child_item)
+mixin navlink(item)
+  -var linkatts = {'href':item.link}
+  a()&attributes(linkatts)=item.title
