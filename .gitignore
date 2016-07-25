@@ -1,7 +1,5 @@
-app/css
 dist
-app/*/config.rb
-app/*.html
+build/*.html
 .sass-cache
 *.DS_Store
 *.buildpath
@@ -9,7 +7,5 @@ app/*.html
 .settings
 *.db
 /nbproject/private/
-app/js/*
-app/images/spr-*
 node_modules
-grunt
+
