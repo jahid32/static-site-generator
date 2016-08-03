@@ -13,8 +13,8 @@ var gulp  = require('gulp'),
     bs = require('browser-sync').create();
 
 var paths = {
-  scss: 'assets/scss/*.scss',
-  jade: 'assets/jade/*.jade',
+  scss: 'assets/scss/**/*.scss',
+  jade: 'assets/jade/**/*!(_).jade',
   js: 'assets/js/*.js'
 } ;
 
@@ -26,21 +26,21 @@ gulp.task('js',function(){
     .pipe(plumber())
     .pipe(uglify())
     .pipe(gulp.dest('build/js'))
-    .pipe(bs.reload({stream: true}));
+    .pipe(bs.stream());
 });
 
 /**
  * Compile sass into css and minify.
  */
 gulp.task('style',function(){
-  gulp.src(paths.scss)
+  gulp.src('paths.scss')
     .pipe(plumber())
     .pipe(sass({
       includePaths: require('node-bourbon').includePaths,
       style: 'compressed'
     }))
     .pipe(gulp.dest('build/css/'))
-    .pipe(bs.reload({stream: true}));
+    .pipe(bs.stream());
 });
 
 /**
@@ -49,14 +49,16 @@ gulp.task('style',function(){
 gulp.task('html',function(){
   gulp.src(paths.jade)
     .pipe(plumber())
-    .pipe(jade())
+    .pipe(jade({
+       pretty: true
+    }))
     .pipe(gulp.dest('build/'))
-    .pipe(bs.reload({stream: true}));
+    .pipe(bs.stream());
 });
 
 
 // Watch Files For Changes & Reload withnode server
-gulp.task('server', ['html', 'style', 'js'], function () {
+gulp.task('server', function () {
   bs.init({
         server: {
             baseDir: "./build"
@@ -65,9 +67,9 @@ gulp.task('server', ['html', 'style', 'js'], function () {
         
         //  proxy: "yourlocal.dev"
     });
-  // gulp.watch(paths.jade, ['html']);
-  // gulp.watch(paths.scss, ['style']);
-  // gulp.watch(paths.js, ['js']);
+  gulp.watch(paths.jade, ['html']);
+  gulp.watch(paths.scss, ['style']);
+  gulp.watch(paths.js, ['js']);
 });
 // Watch task
 // It's watches java script
@@ -77,5 +79,5 @@ gulp.task('watch',function(){
   gulp.watch(paths.js, ['js']);
 });
 
-gulp.task('default', ['js', 'style', 'html' ,'serve']);
+gulp.task('default', ['js', 'style', 'html' ,'server']);
 

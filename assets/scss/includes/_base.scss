@@ -1,9 +1,9 @@
 body{
-  // @include linear-gradient(50deg, #71e 0%, #2989d8 50%, #207cca 51%, #e87db9 100%);
+  @include linear-gradient(50deg, #71e 0%, #2989d8 50%, #207cfd 51%, #e87db9 100%);
 }
 
 a {
-  color: read
+  color: red;
 }
 .container{
   @include outer-container;
